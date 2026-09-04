@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-light: var(--brand-light);
+  --color-accent-teal: var(--accent-teal);
+  --color-surface: var(--surface);
+  --color-surface-card: var(--surface-card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ghost: var(--ghost);
+  --color-hairline: var(--hairline);
+  --color-on-brand: var(--on-brand);
+  --color-gold: var(--gold);
+  
+  --radius-card: var(--radius-card);
+  --radius-card-lg: var(--radius-card-lg);
+  --radius-pill: var(--radius-pill);
+}
+
+@layer base {
+  :root {
+    --background: #faf9f6; /* Off-white aesthetic */
+    --foreground: #111827; /* Dark ink */
+    --brand: #2563c9;
+    --brand-deep: #0f2f63;
+    --brand-light: #5790e6;
+    --accent-teal: #0b6e97;
+    --surface: rgba(255, 255, 255, 0.7); 
+    --surface-card: #ffffff;
+    --ink: #111827;
+    --ink-soft: #4b5563;
+    --ghost: rgba(17, 24, 39, 0.05);
+    --hairline: rgba(0, 0, 0, 0.1); 
+    --on-brand: #ffffff;
+    --gold: #d4af37;
+    --radius-card: 1.5rem;
+    --radius-card-lg: 2rem;
+    --radius-pill: 62.5rem;
+  }
+  
+  .dark {
+    --background: #0f2f63;
+    --foreground: #ffffff;
+    --surface: #1a1a1a;
+    --surface-card: #111111;
+    --ink: #ffffff;
+    --ink-soft: #a0a0a0;
+    --hairline: #d4af37;
+  }
+
+  /* Adaptive REM System */
+  html {
+    font-size: 16px; /* Base */
+  }
+  @media (max-width: 1920px) { html { font-size: 0.833333vw; } }
+  @media (max-width: 1440px) { html { font-size: 1.111111vw; } }
+  @media (max-width: 1024px) { html { font-size: 1.5625vw; } }
+  @media (max-width: 640px)  { html { font-size: 4.444444vw; } }
+
+  /* Hide scrollbar for Lenis */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Onest", system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .luxury-glass {
+    @apply bg-white/60 backdrop-blur-xl border border-gray-200/50 shadow-xl;
+  }
+  
+  .luxury-glass-deep {
+    @apply bg-white/95 backdrop-blur-2xl border border-gray-100 shadow-2xl;
+  }
+
+  .mesh-gradient-bg {
+    background-color: #faf9f6;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(213,80%,88%,1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(38,70%,90%,1) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(213,80%,88%,1) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(38,70%,90%,1) 0px, transparent 50%);
+  }
+}
