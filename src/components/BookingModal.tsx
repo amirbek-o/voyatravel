@@ -61,7 +61,7 @@ export default function BookingModal({
       setStatus("error");
     }
   };
-
+  return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6" role="dialog" aria-modal="true">
       {/* Backdrop */}
       <div 
