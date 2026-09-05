@@ -189,70 +189,79 @@ export default function Home() {
               <div className="w-16 h-1 bg-brand mx-auto rounded-full"></div>
             </div>
             
-            <div className="flex flex-col lg:flex-row gap-12 bg-white/5 p-6 md:p-10 rounded-[3rem] border border-white/10 backdrop-blur-xl">
+            <div className="flex flex-col lg:flex-row gap-12 bg-white/5 p-6 md:p-10 rounded-[3rem] border border-white/10 backdrop-blur-xl shadow-2xl">
               <div className="flex-1 flex flex-col justify-center text-white">
                 <h3 className="text-2xl font-bold mb-6 text-brand">VOYA TRAVEL</h3>
                 <p className="text-[#FFF2E2]/80 mb-10 leading-relaxed max-w-md text-lg">
-                  Oʻzbekistondagi turizm agentligi. Turlar, aviachiptalar, mehmonxonalar va sayohatni to‘liq tashkil qilish.
+                  {(t as any).contactsBlock?.desc || "Oʻzbekistondagi turizm agentligi. Turlar, aviachiptalar, mehmonxonalar va sayohatni to‘liq tashkil qilish."}
                 </p>
                 
                 <div className="space-y-6">
-                  <div className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
-                      <MapPinIcon className="w-5 h-5 text-brand group-hover:text-white" />
+                  {/* Address */}
+                  <a href="https://maps.app.goo.gl/rxqWLFtMtn6PBZ3P7" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 group cursor-pointer">
+                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand group-hover:scale-110 transition-all duration-300 shadow-md group-hover:shadow-brand/40">
+                      <MapPinIcon className="w-5 h-5 text-brand group-hover:text-white transition-colors" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Manzil</h4>
-                      <p className="text-[#FFF2E2]/70 leading-snug">Sirdaryo viloyati, Xovos tumani, Istiqlol mahallasi, Istiqbol ko'chasi, 39-uy</p>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider group-hover:text-brand transition-colors">{(t as any).contactsBlock?.address || "Manzil"}</h4>
+                      <p className="text-[#FFF2E2]/70 leading-snug group-hover:text-white transition-colors">Sirdaryo viloyati, Xovos tumani, Istiqlol mahallasi, Istiqbol ko'chasi, 39-uy</p>
                     </div>
-                  </div>
+                  </a>
                   
-                  <div className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
-                      <Mail className="w-5 h-5 text-brand group-hover:text-white" />
+                  {/* Email */}
+                  <a href="mailto:voyatraveluz@gmail.com" className="flex items-start gap-4 group cursor-pointer">
+                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand group-hover:scale-110 transition-all duration-300 shadow-md group-hover:shadow-brand/40">
+                      <Mail className="w-5 h-5 text-brand group-hover:text-white transition-colors" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Email</h4>
-                      <p className="text-[#FFF2E2]/70">voyatraveluz@gmail.com</p>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider group-hover:text-brand transition-colors">{(t as any).contactsBlock?.email || "Email"}</h4>
+                      <p className="text-[#FFF2E2]/70 group-hover:text-white transition-colors">voyatraveluz@gmail.com</p>
                     </div>
-                  </div>
+                  </a>
                   
-                  <div className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
-                      <Phone className="w-5 h-5 text-brand group-hover:text-white" />
+                  {/* Whatsapp */}
+                  <a href="https://wa.me/998999923325" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 group cursor-pointer">
+                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand group-hover:scale-110 transition-all duration-300 shadow-md group-hover:shadow-brand/40">
+                      <Phone className="w-5 h-5 text-brand group-hover:text-white transition-colors" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Whatsapp & Telegram</h4>
-                      <p className="text-[#FFF2E2]/70">+998 99 992 33 25</p>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider group-hover:text-brand transition-colors">{(t as any).contactsBlock?.whatsapp || "Whatsapp"} & {(t as any).contactsBlock?.telegram || "Telegram"}</h4>
+                      <p className="text-[#FFF2E2]/70 group-hover:text-white transition-colors">+998 99 992 33 25</p>
                     </div>
-                  </div>
+                  </a>
 
+                  {/* Hours */}
                   <div className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
-                      <Clock className="w-5 h-5 text-brand group-hover:text-white" />
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-white/20 transition-all duration-300 shadow-md">
+                      <Clock className="w-5 h-5 text-brand group-hover:text-brand-light transition-colors" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Ish vaqti</h4>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">{(t as any).contactsBlock?.hours || "Ish vaqti"}</h4>
                       <p className="text-[#FFF2E2]/70">08:00 - 20:00</p>
                     </div>
                   </div>
 
+                  {/* Director */}
                   <div className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
-                      <User className="w-5 h-5 text-brand group-hover:text-white" />
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-white/20 transition-all duration-300 shadow-md">
+                      <User className="w-5 h-5 text-brand group-hover:text-brand-light transition-colors" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Direktor</h4>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">{(t as any).contactsBlock?.director || "Direktor"}</h4>
                       <p className="text-[#FFF2E2]/70">AKRAMOV TOKHIRJON ABROR OG'LI</p>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="flex-[1.2] min-h-[400px] rounded-[2rem] overflow-hidden border border-white/10 relative group">
+              {/* Map */}
+              <div className="flex-[1.2] min-h-[400px] rounded-[2rem] overflow-hidden border border-white/10 relative group shadow-2xl">
                 <div className="absolute inset-0 bg-brand-deep/20 pointer-events-none group-hover:opacity-0 transition-opacity duration-500 z-10" />
+                <a href="https://maps.app.goo.gl/rxqWLFtMtn6PBZ3P7" target="_blank" rel="noopener noreferrer" className="absolute top-4 left-4 z-20 bg-brand hover:bg-brand/90 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-xl hover:scale-105 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                  <MapPinIcon className="w-4 h-4" /> Open in Maps
+                </a>
                 <iframe 
-                  src="https://maps.google.com/maps?q=Sirdaryo+viloyati,+Xovos+tumani,+Istiqlol+mahallasi,+Istiqbol+ko%27chasi,+39-uy&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                  src="https://maps.google.com/maps?q=40.523444,68.779778&t=&z=16&ie=UTF8&iwloc=&output=embed" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 

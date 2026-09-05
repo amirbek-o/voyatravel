@@ -66,6 +66,16 @@ export const translations = {
       license: "License",
       address: "Address",
       hours: "Hours",
+    },
+    contactsBlock: {
+      address: "Address",
+      phone: "Phone",
+      email: "EMAIL",
+      whatsapp: "WHATSAPP",
+      telegram: "TELEGRAM",
+      hours: "Working hours",
+      director: "Director",
+      desc: "Travel agency in Uzbekistan. Tours, flights, hotels, and full travel organization."
     }
   },
   ru: {
@@ -129,6 +139,16 @@ export const translations = {
       license: "Лицензия",
       address: "Адрес",
       hours: "Часы работы",
+    },
+    contactsBlock: {
+      address: "Адрес",
+      phone: "Телефон",
+      email: "EMAIL",
+      whatsapp: "WHATSAPP",
+      telegram: "TELEGRAM",
+      hours: "Режим работы",
+      director: "Директор",
+      desc: "Туристическое агентство в Узбекистане. Туры, авиабилеты, отели и полная организация путешествий."
     }
   },
   uz: {
@@ -192,6 +212,16 @@ export const translations = {
       license: "Litsenziya",
       address: "Manzil",
       hours: "Ish vaqti",
+    },
+    contactsBlock: {
+      address: "Manzil",
+      phone: "Telefon",
+      email: "EMAIL",
+      whatsapp: "WHATSAPP",
+      telegram: "TELEGRAM",
+      hours: "Ish vaqti",
+      director: "Direktor",
+      desc: "Oʻzbekistondagi turizm agentligi. Turlar, aviachiptalar, mehmonxonalar va sayohatni to‘liq tashkil qilish."
     }
   }
 };
