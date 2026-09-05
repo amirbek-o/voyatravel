@@ -15,10 +15,11 @@ export const translations = {
       slogan: "Your journey, our care",
     },
     tour: {
-      from: "From",
+      from: "FROM",
       nights: "Nights",
+      currency: "so'm",
       perPerson: "per person",
-      bookNow: "Book a Visit",
+      bookNow: "BOOK NOW",
     },
     search: {
       title: "Start your journey with us!",
@@ -72,10 +73,11 @@ export const translations = {
       slogan: "Ваше путешествие, наша забота",
     },
     tour: {
-      from: "От",
+      from: "ОТ",
       nights: "Ночей",
-      perPerson: "на человека",
-      bookNow: "Оставить заявку",
+      currency: "сум",
+      perPerson: "за человека",
+      bookNow: "ЗАБРОНИРОВАТЬ",
     },
     search: {
       title: "Начните свое путешествие с нами!",
@@ -129,10 +131,11 @@ export const translations = {
       slogan: "Sayoheatingiz, bizning g'amxo'rligimizda",
     },
     tour: {
-      from: "Dan",
+      from: "DAN",
       nights: "Kecha",
+      currency: "so'm",
       perPerson: "kishi uchun",
-      bookNow: "Band qilish",
+      bookNow: "BAND QILISH",
     },
     search: {
       title: "Sayoheatingizni biz bilan boshlang!",

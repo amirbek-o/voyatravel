@@ -30,9 +30,9 @@ export default function TourCard({ tour, index = 0 }: { tour: any, index?: numbe
     <>
       <div
         ref={cardRef}
-        className={`group luxury-glass rounded-card overflow-hidden flex flex-col h-[28rem] cursor-pointer relative transition-all duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)] ${
+        className={`group bg-brand-deep border border-brand-deep/20 rounded-card overflow-hidden flex flex-col h-[32rem] cursor-pointer relative transition-all duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)] ${
           inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[48px]"
-        } hover:scale-[1.02] hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(15,47,99,0.15)]`}
+        } hover:scale-[1.02] hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(13,43,69,0.25)]`}
         style={{ transitionDelay: `${index * 140}ms` }}
         onClick={() => setIsModalOpen(true)}
       >
@@ -67,7 +67,7 @@ export default function TourCard({ tour, index = 0 }: { tour: any, index?: numbe
         {/* CONTENT LOGIC BLOCK - BOTTOM 55% */}
         <div className="h-[55%] flex flex-col flex-grow relative z-10 bg-[#FFF2E2] p-5 text-brand-deep">
           {/* Hotel Heading */}
-          <h3 className="text-xl font-bold text-brand-deep line-clamp-1 group-hover:text-brand transition-colors mb-4">
+          <h3 className="text-xl font-bold text-brand-deep line-clamp-3 min-h-[3rem] group-hover:text-brand transition-colors mb-4">
             {tour.hotel.name}
           </h3>
           
@@ -98,9 +98,7 @@ export default function TourCard({ tour, index = 0 }: { tour: any, index?: numbe
             <div>
               <p className="text-[0.65rem] text-ink-soft font-medium uppercase tracking-wider mb-0.5">{t.tour.from}</p>
               <p className="text-2xl font-bold text-brand-deep leading-none">
-                {tour.package.currency === 'UZS' 
-                  ? `${tour.package.pricePerPax.toLocaleString('ru-RU')} сум`
-                  : `$${tour.package.pricePerPax}`}
+                {tour.package.pricePerPax.toLocaleString('ru-RU')} {t.tour.currency}
               </p>
               <p className="text-xs text-ink-soft mt-1">{t.tour.perPerson}</p>
             </div>
