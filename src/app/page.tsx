@@ -1,32 +1,27 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import toursData from "@/data/scraped-tours.json";
+import toursEn from "@/data/tours-en.json";
+import toursRu from "@/data/tours-ru.json";
+import toursUz from "@/data/tours-uz.json";
 import TourCard from "@/components/TourCard";
 import CurtainLoader from "@/components/CurtainLoader";
 import SearchWizard from "@/components/SearchWizard";
 import BlueprintSection from "@/components/BlueprintSection";
-import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
-import { useState, useMemo } from "react";
+import ContinuousMarquee from "@/components/ContinuousMarquee";
+import { useState } from "react";
 import { Globe, Tag, Headset, Shield, PlaneTakeoff, Building2, CalendarCheck, Mail, Phone, MapPin as MapPinIcon, Clock, User } from "lucide-react";
 
-export default function Home() {
-  const { t } = useLanguage();
-  const [isReady, setIsReady] = useState(false);
+const allTours = {
+  en: toursEn,
+  ru: toursRu,
+  uz: toursUz
+};
 
-  const slides = useMemo(() => {
-    return toursData.slice(0, 6).map((tour) => ({
-      src: tour.imageUrl || "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop",
-      alt: tour.hotel.name,
-      title: tour.hotel.name,
-      subtitle: `${tour.destination.town}, ${tour.destination.name}`,
-      meta: [
-        { label: "Price", value: `$${tour.package.pricePerPax}` },
-        { label: "Duration", value: `${tour.duration.nights} Nights` },
-        { label: "Rating", value: `${tour.hotel.stars} Stars` }
-      ]
-    }));
-  }, []);
+export default function Home() {
+  const { t, language } = useLanguage();
+  const [isReady, setIsReady] = useState(false);
+  const toursData = allTours[language as keyof typeof allTours] || toursUz;
 
   const MaskedText = ({ text, delayBase = 0 }: { text: string, delayBase?: number }) => {
     return (
@@ -99,11 +94,9 @@ export default function Home() {
           <BlueprintSection />
         </div>
 
-        {/* Coverflow Carousel */}
+        {/* Continuous Marquee */}
         <section className="w-full relative z-10 py-16">
-          <div className="w-full overflow-hidden">
-            <CoverflowCarousel slides={slides} showCaption showNavigation loop />
-          </div>
+          <ContinuousMarquee tours={toursData} />
         </section>
 
         {/* Nima uchun Voya Section */}
