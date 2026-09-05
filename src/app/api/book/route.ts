@@ -29,10 +29,7 @@ export async function POST(request: Request) {
     }
 
     // Send Telegram Alert (Non-blocking so it doesn't hang the response loop)
-    const botToken = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
-
-    if (botToken && chatId) {
+    if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
       const message = `
 🌟 *New Premium Booking Request!* 🌟
 
@@ -45,18 +42,25 @@ export async function POST(request: Request) {
 🛫 *Flight Type:* ${flightType}
       `;
 
-      // Fire-and-forget fetch to avoid blocking the execution loop
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "Markdown",
-        }),
-      }).catch(tgError => {
-        console.error("Telegram API Error:", tgError);
-      });
+      // Await the fetch request so Vercel serverless functions don't terminate execution early
+      try {
+        const response = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: process.env.TELEGRAM_CHAT_ID,
+            text: message,
+            parse_mode: 'Markdown'
+          })
+        });
+
+        if (response.status === 400 || response.status === 403 || !response.ok) {
+          const errorText = await response.text();
+          console.error(`Telegram API Error ${response.status}:`, errorText);
+        }
+      } catch (tgError) {
+        console.error("Telegram fetch operation failed:", tgError);
+      }
     } else {
       console.warn("Missing Telegram credentials. Skipping alert.");
     }
