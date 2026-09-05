@@ -92,6 +92,7 @@ body {
       radial-gradient(at 100% 0%, rgba(255, 122, 61, 0.1) 0px, transparent 50%),
       radial-gradient(at 100% 100%, rgba(108, 198, 231, 0.15) 0px, transparent 50%),
       radial-gradient(at 0% 100%, rgba(255, 122, 61, 0.1) 0px, transparent 50%);
+  }
 }
 
 @keyframes marquee {
