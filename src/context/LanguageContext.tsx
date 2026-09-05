@@ -8,6 +8,11 @@ export const translations = {
   en: {
     nav: {
       tours: "Explore Tours",
+      destinations: "Destinations",
+      about: "About",
+      services: "Services",
+      howItWorks: "How it works",
+      contacts: "Contacts",
     },
     hero: {
       title: "The World is Waiting!",
@@ -66,6 +71,11 @@ export const translations = {
   ru: {
     nav: {
       tours: "Смотреть Туры",
+      destinations: "Направления",
+      about: "О нас",
+      services: "Услуги",
+      howItWorks: "Как это работает",
+      contacts: "Контакты",
     },
     hero: {
       title: "Мир ждет вас!",
@@ -124,6 +134,11 @@ export const translations = {
   uz: {
     nav: {
       tours: "Turlarni Ko'rish",
+      destinations: "Yo'nalishlar",
+      about: "Biz haqimizda",
+      services: "Xizmatlar",
+      howItWorks: "Qanday ishlaydi",
+      contacts: "Aloqa",
     },
     hero: {
       title: "Dunyo sizni kutmoqda!",

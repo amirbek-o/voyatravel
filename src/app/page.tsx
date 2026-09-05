@@ -8,7 +8,7 @@ import SearchWizard from "@/components/SearchWizard";
 import BlueprintSection from "@/components/BlueprintSection";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
 import { useState, useMemo } from "react";
-import { Globe, Tag, Headset, Shield } from "lucide-react";
+import { Globe, Tag, Headset, Shield, PlaneTakeoff, Building2, CalendarCheck, Mail, Phone, MapPin as MapPinIcon, Clock, User } from "lucide-react";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -107,7 +107,7 @@ export default function Home() {
         </section>
 
         {/* Nima uchun Voya Section */}
-        <section className="py-16 relative z-10 bg-brand-deep/30 backdrop-blur-lg border-y border-white/5 mt-4 mb-12">
+        <section id="about" className="py-16 relative z-10 bg-brand-deep/30 backdrop-blur-lg border-y border-white/5 mt-4 mb-12">
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-10 text-left tracking-tight border-b border-white/20 pb-4">Nima uchun Voya?</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -139,8 +139,34 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Services Section */}
+        <section id="services" className="py-24 relative z-10">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="mb-16 text-center">
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 tracking-tight">{(t.nav as any).services || "Xizmatlar"}</h2>
+              <div className="w-16 h-1 bg-brand mx-auto rounded-full"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: "Turlar", icon: Globe, desc: "Dunyo bo'ylab unutilmas sayohatlar" },
+                { title: "Aviachiptalar", icon: PlaneTakeoff, desc: "Hamyonbop va qulay parvozlar" },
+                { title: "Mehmonxonalar", icon: Building2, desc: "Eng yaxshi mehmonxonalarni band qilish" },
+                { title: "To'liq Tashkil Qilish", icon: CalendarCheck, desc: "Hujjatlar va sug'urta xizmatlari" },
+              ].map((service, i) => (
+                <div key={i} className="group bg-brand-deep/80 backdrop-blur-md border border-white/10 rounded-[2rem] p-8 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-2 hover:bg-brand hover:border-brand shadow-xl">
+                  <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                    <service.icon className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
+                  <p className="text-[#FFF2E2]/70 group-hover:text-white/90 text-sm leading-relaxed">{service.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Tours Grid Section */}
-        <section id="tours" className="py-24 relative z-10">
+        <section id="destinations" className="py-24 relative z-10">
           <div className="max-w-7xl mx-auto px-4">
             <div className="mb-16 text-center">
               <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 tracking-tight">{t.nav.tours}</h2>
@@ -151,6 +177,91 @@ export default function Home() {
               {toursData.map((tour, index) => (
                 <TourCard key={index} tour={tour} index={index} />
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Contacts Section */}
+        <section id="contacts" className="py-24 relative z-10 bg-brand-deep border-t border-white/10">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="mb-16 text-center">
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 tracking-tight">{(t.nav as any).contacts || "Aloqa"}</h2>
+              <div className="w-16 h-1 bg-brand mx-auto rounded-full"></div>
+            </div>
+            
+            <div className="flex flex-col lg:flex-row gap-12 bg-white/5 p-6 md:p-10 rounded-[3rem] border border-white/10 backdrop-blur-xl">
+              <div className="flex-1 flex flex-col justify-center text-white">
+                <h3 className="text-2xl font-bold mb-6 text-brand">VOYA TRAVEL</h3>
+                <p className="text-[#FFF2E2]/80 mb-10 leading-relaxed max-w-md text-lg">
+                  Oʻzbekistondagi turizm agentligi. Turlar, aviachiptalar, mehmonxonalar va sayohatni to‘liq tashkil qilish.
+                </p>
+                
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
+                      <MapPinIcon className="w-5 h-5 text-brand group-hover:text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Manzil</h4>
+                      <p className="text-[#FFF2E2]/70 leading-snug">Sirdaryo viloyati, Xovos tumani, Istiqlol mahallasi, Istiqbol ko'chasi, 39-uy</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
+                      <Mail className="w-5 h-5 text-brand group-hover:text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Email</h4>
+                      <p className="text-[#FFF2E2]/70">voyatraveluz@gmail.com</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
+                      <Phone className="w-5 h-5 text-brand group-hover:text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Whatsapp & Telegram</h4>
+                      <p className="text-[#FFF2E2]/70">+998 99 992 33 25</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
+                      <Clock className="w-5 h-5 text-brand group-hover:text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Ish vaqti</h4>
+                      <p className="text-[#FFF2E2]/70">08:00 - 20:00</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center shrink-0 group-hover:bg-brand transition-colors duration-300">
+                      <User className="w-5 h-5 text-brand group-hover:text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">Direktor</h4>
+                      <p className="text-[#FFF2E2]/70">AKRAMOV TOKHIRJON ABROR OG'LI</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex-[1.2] min-h-[400px] rounded-[2rem] overflow-hidden border border-white/10 relative group">
+                <div className="absolute inset-0 bg-brand-deep/20 pointer-events-none group-hover:opacity-0 transition-opacity duration-500 z-10" />
+                <iframe 
+                  src="https://maps.google.com/maps?q=Sirdaryo+viloyati,+Xovos+tumani,+Istiqlol+mahallasi,+Istiqbol+ko%27chasi,+39-uy&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0 grayscale-[20%] contrast-[1.1] group-hover:grayscale-0 transition-all duration-500"
+                />
+              </div>
             </div>
           </div>
         </section>

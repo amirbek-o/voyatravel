@@ -5,10 +5,16 @@ import { useState } from "react";
 import BookingModal from "./BookingModal";
 
 export default function Navbar() {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const navLinks = ["Destinations", "About", "Services", "How it works", "Contacts"];
+  const navLinks = [
+    { label: t.nav.destinations, href: "#destinations" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.services, href: "#services" },
+    { label: t.nav.howItWorks, href: "#how-it-works" },
+    { label: t.nav.contacts, href: "#contacts" }
+  ];
 
   return (
     <>
@@ -17,7 +23,7 @@ export default function Navbar() {
         {/* 1. BRAND STRUCTURE (Far Left) */}
         <div className="flex flex-1 items-center justify-start">
           <a href="/" className="text-xl sm:text-2xl font-bold tracking-tight text-[#0D2B45] uppercase">
-            VOYA TURIZM
+            VOYA TRAVEL
           </a>
         </div>
 
@@ -25,11 +31,11 @@ export default function Navbar() {
         <nav className="hidden lg:flex flex-[2] justify-center items-center gap-8 font-medium text-[15px] text-gray-500">
           {navLinks.map((item) => (
             <a 
-              key={item} 
-              href={`#${item.toLowerCase().replace(/ /g, '-')}`} 
+              key={item.href} 
+              href={item.href} 
               className="hover:text-brand transition-colors duration-300"
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </nav>
