@@ -65,7 +65,7 @@ export default function TourCard({ tour, index = 0 }: { tour: any, index?: numbe
         </div>
 
         {/* CONTENT LOGIC BLOCK - BOTTOM 55% */}
-        <div className="h-[55%] flex flex-col flex-grow relative z-10 bg-white p-5 text-brand-deep">
+        <div className="h-[55%] flex flex-col flex-grow relative z-10 bg-[#FFF2E2] p-5 text-brand-deep">
           {/* Hotel Heading */}
           <h3 className="text-xl font-bold text-brand-deep line-clamp-1 group-hover:text-brand transition-colors mb-4">
             {tour.hotel.name}
@@ -94,16 +94,18 @@ export default function TourCard({ tour, index = 0 }: { tour: any, index?: numbe
           </div>
 
           {/* Pricing & CTA Bottom Row */}
-          <div className="mt-4 flex items-end justify-between border-t border-gray-100 pt-4">
+          <div className="mt-4 flex items-end justify-between border-t border-brand-deep/10 pt-4">
             <div>
               <p className="text-[0.65rem] text-ink-soft font-medium uppercase tracking-wider mb-0.5">{t.tour.from}</p>
               <p className="text-2xl font-bold text-brand-deep leading-none">
-                ${tour.package.pricePerPax}
+                {tour.package.currency === 'UZS' 
+                  ? `${tour.package.pricePerPax.toLocaleString('ru-RU')} сум`
+                  : `$${tour.package.pricePerPax}`}
               </p>
               <p className="text-xs text-ink-soft mt-1">{t.tour.perPerson}</p>
             </div>
             
-            <button className="inline-flex items-center gap-2 rounded-pill px-5 py-2.5 text-xs font-bold uppercase tracking-wide border border-brand-deep text-white bg-brand-deep group-hover:bg-brand group-hover:border-brand transition-colors">
+            <button className="inline-flex items-center gap-2 rounded-pill px-5 py-2.5 text-xs font-bold uppercase tracking-wide border border-brand text-white bg-brand hover:scale-105 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/30 transition-all duration-300">
               {t.tour.bookNow}
               <ArrowRight className="w-4 h-4 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:rotate-[-45deg]" />
             </button>

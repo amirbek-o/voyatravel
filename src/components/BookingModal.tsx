@@ -17,6 +17,7 @@ export default function BookingModal({
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
+    commentary: "",
     flightClass: "economy",
     flightType: "round",
   });
@@ -135,6 +136,18 @@ export default function BookingModal({
                 placeholder="+998 90 123 45 67"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-[0.18em] text-brand-deep/60 mb-2">
+                {t.booking.commentary || "Commentary"}
+              </label>
+              <textarea
+                className="w-full rounded-xl border border-brand-deep/20 bg-white px-4 py-3 text-sm font-semibold text-brand-deep placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-shadow resize-none min-h-[80px]"
+                placeholder="..."
+                value={formData.commentary}
+                onChange={(e) => setFormData({ ...formData, commentary: e.target.value })}
               />
             </div>
 

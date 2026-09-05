@@ -27,7 +27,7 @@ export default function LegalPage() {
             </div>
             <div>
               <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">{t.footer.licensee}</h3>
-              <p className="text-xl font-semibold text-slate-800">OOO TripTour Group</p>
+              <p className="text-xl font-semibold text-slate-800">OOO Voya Travel Group</p>
             </div>
           </div>
 

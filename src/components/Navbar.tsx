@@ -20,9 +20,9 @@ export default function Navbar() {
 
         {/* Center Brand */}
         <div className="flex-1 flex justify-start lg:justify-center items-center">
-          <a href="/" className="flex items-center gap-2 text-xl font-bold uppercase tracking-[0.2em] text-brand-deep hover:text-brand transition-colors">
-            <Plane className="w-6 h-6 text-brand-deep" />
-            <span>VOYATRAVEL</span>
+          <a href="/" className="flex items-center gap-2 text-xl font-bold uppercase tracking-[0.2em] text-white hover:text-brand transition-colors">
+            <Plane className="w-6 h-6 text-brand" />
+            <span>Voya Travel</span>
           </a>
         </div>
 

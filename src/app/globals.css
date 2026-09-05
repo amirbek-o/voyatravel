@@ -21,20 +21,20 @@
 
 @layer base {
   :root {
-    --background: #faf9f6; /* Off-white aesthetic */
-    --foreground: #111827; /* Dark ink */
-    --brand: #2563c9;
-    --brand-deep: #0f2f63;
-    --brand-light: #5790e6;
+    --background: #0D2B45; /* Deep Blue aesthetic */
+    --foreground: #FFFFFF; /* Crisp white */
+    --brand: #FF7A3D; /* Orange */
+    --brand-deep: #0D2B45; /* Deep Blue */
+    --brand-light: #6CC6E7; /* Sky Blue */
     --accent-teal: #0b6e97;
-    --surface: rgba(255, 255, 255, 0.7); 
-    --surface-card: #ffffff;
-    --ink: #111827;
+    --surface: rgba(255, 255, 255, 0.05); /* very light white for glass on dark */
+    --surface-card: #FFF2E2; /* Cream */
+    --ink: #0D2B45;
     --ink-soft: #4b5563;
-    --ghost: rgba(17, 24, 39, 0.05);
-    --hairline: rgba(0, 0, 0, 0.1); 
+    --ghost: rgba(255, 255, 255, 0.1);
+    --hairline: rgba(255, 255, 255, 0.15); 
     --on-brand: #ffffff;
-    --gold: #d4af37;
+    --gold: #FF7A3D; /* Using orange for gold */
     --radius-card: 1.5rem;
     --radius-card-lg: 2rem;
     --radius-pill: 62.5rem;
@@ -86,11 +86,11 @@ body {
   }
 
   .mesh-gradient-bg {
-    background-color: #faf9f6;
+    background-color: var(--background);
     background-image: 
-      radial-gradient(at 0% 0%, hsla(213,80%,88%,1) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(38,70%,90%,1) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, hsla(213,80%,88%,1) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(38,70%,90%,1) 0px, transparent 50%);
+      radial-gradient(at 0% 0%, rgba(108, 198, 231, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(255, 122, 61, 0.1) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(108, 198, 231, 0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(255, 122, 61, 0.1) 0px, transparent 50%);
   }
 }

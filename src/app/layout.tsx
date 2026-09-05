@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TripTour Uzbekistan - Premium Travel Packages",
+  title: "Voya Travel - Premium Travel Packages",
   description: "Luxury travel aggregator licensed in Uzbekistan (License № T-0123-45)",
 };
 

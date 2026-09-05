@@ -37,9 +37,9 @@ export default function CurtainLoader({ onReady }: { onReady: () => void }) {
     >
       <div className="flex flex-col items-center gap-8">
         <div className="flex items-center gap-3 animate-in slide-in-from-bottom-4 duration-700 ease-out">
-          <Plane className="w-8 h-8 text-purple-400" />
-          <span className="text-3xl font-bold uppercase tracking-[0.2em] bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            TripTour
+          <Plane className="w-8 h-8 text-brand" />
+          <span className="text-3xl font-bold uppercase tracking-[0.2em] text-white">
+            Voya Travel
           </span>
         </div>
         

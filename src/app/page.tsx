@@ -8,6 +8,7 @@ import SearchWizard from "@/components/SearchWizard";
 import BlueprintSection from "@/components/BlueprintSection";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
 import { useState, useMemo } from "react";
+import { Globe, Tag, Headset, Shield } from "lucide-react";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -59,7 +60,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative pt-32 pb-10 lg:pt-48 lg:pb-16 overflow-visible z-10">
           <div className="max-w-7xl mx-auto px-4 relative z-10 text-center flex flex-col items-center justify-center pt-12 pb-6">
-            <h1 className="text-[14vw] md:text-[8vw] font-bold text-brand-deep leading-[0.85] tracking-tight mb-8">
+            <h1 className="text-[14vw] md:text-[8vw] font-bold text-white leading-[0.85] tracking-tight mb-8">
               <MaskedText text={t.hero.title} delayBase={200} />
             </h1>
             
@@ -81,6 +82,7 @@ export default function Home() {
               }`}
               style={{ transitionDelay: "900ms" }}
             >
+              <h2 className="text-xl md:text-2xl font-semibold text-white mb-6 text-center">{t.search.title}</h2>
               <SearchWizard />
             </div>
             
@@ -104,11 +106,44 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Nima uchun Voya Section */}
+        <section className="py-16 relative z-10 bg-brand-deep/30 backdrop-blur-lg border-y border-white/5 mt-4 mb-12">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-10 text-left tracking-tight border-b border-white/20 pb-4">Nima uchun Voya?</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="flex flex-col items-center gap-4 text-center">
+                <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center">
+                  <Globe className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white font-medium text-sm md:text-base leading-snug">Eng yaxshi<br/>yo'nalishlar</p>
+              </div>
+              <div className="flex flex-col items-center gap-4 text-center">
+                <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center">
+                  <Tag className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white font-medium text-sm md:text-base leading-snug">Qulay narxlar<br/>va aksiyalar</p>
+              </div>
+              <div className="flex flex-col items-center gap-4 text-center">
+                <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center">
+                  <Headset className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white font-medium text-sm md:text-base leading-snug">24/7 qo'llab-<br/>quvvatlash</p>
+              </div>
+              <div className="flex flex-col items-center gap-4 text-center">
+                <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white font-medium text-sm md:text-base leading-snug">Ishonchli va<br/>xavfsiz xizmat</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Tours Grid Section */}
         <section id="tours" className="py-24 relative z-10">
           <div className="max-w-7xl mx-auto px-4">
             <div className="mb-16 text-center">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-brand-deep mb-4 tracking-tight">{t.nav.tours}</h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 tracking-tight">{t.nav.tours}</h2>
               <div className="w-16 h-1 bg-brand mx-auto rounded-full"></div>
             </div>
 

@@ -4,7 +4,7 @@ import { query } from "@/lib/db";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { fullName, phone, destination, hotelName, price, flightClass, flightType } = body;
+    const { fullName, phone, commentary, destination, hotelName, price, flightClass, flightType } = body;
 
     // Validate inputs
     if (!fullName || !phone) {
@@ -17,8 +17,8 @@ export async function POST(request: Request) {
       if (process.env.DATABASE_URL) {
         // Updated schema to match exact Supabase columns: name, hotel, etc.
         await query(
-          "INSERT INTO bookings (name, phone, destination, hotel, price, flight_class, flight_type, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-          [fullName, phone, destination || "Unknown Destination", hotelName || "Unknown", String(price || 0), flightClass, flightType, "Pending"]
+          "INSERT INTO bookings (name, phone, destination, hotel, price, flight_class, flight_type, status, commentary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+          [fullName, phone, destination || "Unknown Destination", hotelName || "Unknown", String(price || 0), flightClass, flightType, "Pending", commentary || ""]
         );
       } else {
         console.warn("No DATABASE_URL provided. Skipping DB insert.");
@@ -40,6 +40,7 @@ export async function POST(request: Request) {
 💵 *Price:* $${price || 0}
 ✈️ *Flight Class:* ${flightClass}
 🛫 *Flight Type:* ${flightType}
+📝 *Commentary:* ${commentary || "No comments"}
       `;
 
       // Await the fetch request so Vercel serverless functions don't terminate execution early

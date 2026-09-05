@@ -10,8 +10,9 @@ export const translations = {
       tours: "Explore Tours",
     },
     hero: {
-      title: "Own The Experience",
-      subtitle: "Discover world-class resorts and premium holiday packages from Tashkent.",
+      title: "The World is Waiting!",
+      subtitle: "Discover the best destinations",
+      slogan: "Your journey, our care",
     },
     tour: {
       from: "From",
@@ -20,6 +21,7 @@ export const translations = {
       bookNow: "Book a Visit",
     },
     search: {
+      title: "Start your journey with us!",
       destination: "Destination",
       dates: "Dates",
       passengers: "Passengers",
@@ -51,6 +53,7 @@ export const translations = {
       error: "Failed to submit. Please try again.",
       submit: "Request a visit",
       submitting: "Sending...",
+      commentary: "Commentary",
     },
     footer: {
       licensee: "Licensee",
@@ -64,8 +67,9 @@ export const translations = {
       tours: "Смотреть Туры",
     },
     hero: {
-      title: "Ваш Идеальный Отдых",
-      subtitle: "Откройте для себя курорты мирового класса и премиальные турпакеты из Ташкента.",
+      title: "Мир ждет вас!",
+      subtitle: "Откройте лучшие направления",
+      slogan: "Ваше путешествие, наша забота",
     },
     tour: {
       from: "От",
@@ -74,6 +78,7 @@ export const translations = {
       bookNow: "Оставить заявку",
     },
     search: {
+      title: "Начните свое путешествие с нами!",
       destination: "Куда",
       dates: "Туда/Обратно",
       passengers: "Сколько человек",
@@ -105,6 +110,7 @@ export const translations = {
       error: "Не удалось отправить. Попробуйте еще раз.",
       submit: "Оставить заявку",
       submitting: "Отправка...",
+      commentary: "Комментарий",
     },
     footer: {
       licensee: "Лицензиат",
@@ -118,8 +124,9 @@ export const translations = {
       tours: "Turlarni Ko'rish",
     },
     hero: {
-      title: "Ideal Dam Olishingiz",
-      subtitle: "Jahon darajasidagi kurortlar va premium tur paketlarni kashf eting.",
+      title: "Dunyo sizni kutmoqda!",
+      subtitle: "Eng yaxshi yo'nalishlar bilan tanishing",
+      slogan: "Sayoheatingiz, bizning g'amxo'rligimizda",
     },
     tour: {
       from: "Dan",
@@ -128,6 +135,7 @@ export const translations = {
       bookNow: "Band qilish",
     },
     search: {
+      title: "Sayoheatingizni biz bilan boshlang!",
       destination: "Qayerga",
       dates: "Qachon",
       passengers: "Necha kishi",
@@ -159,6 +167,7 @@ export const translations = {
       error: "Xatolik yuz berdi. Qaytadan urinib ko'ring.",
       submit: "Yuborish",
       submitting: "Yuborilmoqda...",
+      commentary: "Izoh",
     },
     footer: {
       licensee: "Litsenziya egasi",

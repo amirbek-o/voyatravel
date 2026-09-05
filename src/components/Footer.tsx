@@ -30,14 +30,14 @@ export default function Footer() {
       <div className="py-14 grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
         <div className="max-w-[20rem]">
           <div className="flex items-center gap-2 text-lg font-medium uppercase tracking-[0.2em] mb-4">
-            <Plane className="w-5 h-5 text-brand-light" />
-            <span>TripTour</span>
+            <Plane className="w-5 h-5 text-brand" />
+            <span>Voya Travel</span>
           </div>
           <p className="text-sm text-white/65 mb-6">
             A premium travel aggregator bringing you the finest global holiday experiences from Tashkent.
           </p>
           <address className="not-italic text-sm text-white/80 flex flex-col gap-1">
-            <a href="mailto:play@baseline.club" className="hover:text-white transition-colors">booking@triptour.uz</a>
+            <a href="mailto:booking@voyatravel.uz" className="hover:text-white transition-colors">booking@voyatravel.uz</a>
             <a href="tel:+12125550148" className="hover:text-white transition-colors">+998 (71) 123-45-67</a>
             <span className="text-white/55 mt-1 block">100000, Tashkent, Buyuk Ipak Yuli 48</span>
           </address>
@@ -61,7 +61,7 @@ export default function Footer() {
         {/* Requirement №9 Metadata */}
         <div className="flex flex-col gap-3">
           <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 mb-2">Compliance</h3>
-          <span className="text-sm text-white/80 font-bold">OOO TripTour Group</span>
+          <span className="text-sm text-white/80 font-bold">OOO Voya Travel Group</span>
           <span className="text-sm text-brand-light">License № T-0123-45</span>
           <span className="text-xs text-white/55 leading-relaxed">Issued by the State Tourism Committee of Uzbekistan</span>
         </div>
@@ -69,7 +69,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/15 pt-8 flex flex-col sm:flex-row justify-between items-center gap-5 text-sm text-white/60">
-        <p>© 2026 TripTour Group. All rights reserved.</p>
+        <p>© 2026 Voya Travel Group. All rights reserved.</p>
         
         <div className="flex items-center gap-5">
           <a href="#" className="hover:text-white transition-colors">Instagram</a>

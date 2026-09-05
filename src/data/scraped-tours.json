@@ -1,6 +1,422 @@
 [
   {
     "destination": {
+      "name": "Fransiya",
+      "town": "Parij"
+    },
+    "hotel": {
+      "name": "Romantika va san'at shahri.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 4.9,
+      "reviewsCount": 820
+    },
+    "package": {
+      "price": 25000000,
+      "currency": "UZS",
+      "pricePerPax": 12500000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 7,
+      "checkIn": "2026-10-10",
+      "checkOut": "2026-10-17"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "City View",
+      "spo": "Paris Love"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1502602898657-3e90760020c2?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Yaponiya",
+      "town": "Tokio"
+    },
+    "hotel": {
+      "name": "Kelajak texnologiyalari va qadimiy madaniyat.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 4.8,
+      "reviewsCount": 450
+    },
+    "package": {
+      "price": 32000000,
+      "currency": "UZS",
+      "pricePerPax": 16000000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 10,
+      "checkIn": "2026-11-01",
+      "checkOut": "2026-11-11"
+    },
+    "included": {
+      "meal": "AI",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Premium",
+      "spo": "Tokyo Dreams"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Italiya",
+      "town": "Rim"
+    },
+    "hotel": {
+      "name": "Tarixiy obidalar va betakror lazzat.",
+      "sourceUrl": null,
+      "stars": 4,
+      "rating": 4.7,
+      "reviewsCount": 600
+    },
+    "package": {
+      "price": 21000000,
+      "currency": "UZS",
+      "pricePerPax": 10500000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 6,
+      "checkIn": "2026-09-25",
+      "checkOut": "2026-10-01"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Classic",
+      "spo": "Rome Classic"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "AQSH",
+      "town": "Nyu-York"
+    },
+    "hotel": {
+      "name": "Hech qachon uxlamaydigan shahar.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 4.9,
+      "reviewsCount": 950
+    },
+    "package": {
+      "price": 40000000,
+      "currency": "UZS",
+      "pricePerPax": 20000000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 8,
+      "checkIn": "2026-12-20",
+      "checkOut": "2026-12-28"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Skyline View",
+      "spo": "NY Special"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Узбекистан",
+      "town": "Самарканд"
+    },
+    "hotel": {
+      "name": "Самарканд, Бухара и Хива — жемчужины Великого шёлкового пути.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 5,
+      "reviewsCount": 300
+    },
+    "package": {
+      "price": 2400000,
+      "currency": "UZS",
+      "pricePerPax": 1200000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 7,
+      "checkIn": "2026-10-01",
+      "checkOut": "2026-10-08"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Premium",
+      "spo": "Uzbekistan Heritage"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1528659103597-4043b2db6ef2?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Турция",
+      "town": "Стамбул"
+    },
+    "hotel": {
+      "name": "Тёплое море, «всё включено» и встреча Европы с Азией.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 4.8,
+      "reviewsCount": 450
+    },
+    "package": {
+      "price": 15980000,
+      "currency": "UZS",
+      "pricePerPax": 7990000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 7,
+      "checkIn": "2026-10-05",
+      "checkOut": "2026-10-12"
+    },
+    "included": {
+      "meal": "AI",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Sea View",
+      "spo": "Turkey Special"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1522083165195-3444dd615307?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "ОАЭ",
+      "town": "Дубай"
+    },
+    "hotel": {
+      "name": "Небоскрёбы, шопинг и роскошь в одном из самых ярких городов мира.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 4.9,
+      "reviewsCount": 820
+    },
+    "package": {
+      "price": 12980000,
+      "currency": "UZS",
+      "pricePerPax": 6490000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 6,
+      "checkIn": "2026-10-10",
+      "checkOut": "2026-10-16"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Deluxe",
+      "spo": "Dubai Luxury"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Египет",
+      "town": "Пирамиды"
+    },
+    "hotel": {
+      "name": "Красное море, коралловые рифы и древние пирамиды.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 4.7,
+      "reviewsCount": 610
+    },
+    "package": {
+      "price": 15980000,
+      "currency": "UZS",
+      "pricePerPax": 7990000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 7,
+      "checkIn": "2026-10-15",
+      "checkOut": "2026-10-22"
+    },
+    "included": {
+      "meal": "AI",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Standard",
+      "spo": "Egypt Explorer"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Мальдивы",
+      "town": "Мальдивы"
+    },
+    "hotel": {
+      "name": "Белоснежные пляжи, бирюзовая лагуна и виллы над водой.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 5,
+      "reviewsCount": 950
+    },
+    "package": {
+      "price": 31800000,
+      "currency": "UZS",
+      "pricePerPax": 15900000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 8,
+      "checkIn": "2026-11-01",
+      "checkOut": "2026-11-09"
+    },
+    "included": {
+      "meal": "AI",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Water Villa",
+      "spo": "Maldives Paradise"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Таиланд",
+      "town": "Пхукет"
+    },
+    "hotel": {
+      "name": "Экзотические пляжи, тропические острова и яркая культура Азии.",
+      "sourceUrl": null,
+      "stars": 4,
+      "rating": 4.6,
+      "reviewsCount": 420
+    },
+    "package": {
+      "price": 19800000,
+      "currency": "UZS",
+      "pricePerPax": 9900000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 10,
+      "checkIn": "2026-11-10",
+      "checkOut": "2026-11-20"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Bungalow",
+      "spo": "Thai Retreat"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Грузия",
+      "town": "Батуми"
+    },
+    "hotel": {
+      "name": "Горы, Чёрное море, вино и гостеприимство — рядом и доступно.",
+      "sourceUrl": null,
+      "stars": 4,
+      "rating": 4.7,
+      "reviewsCount": 380
+    },
+    "package": {
+      "price": 8980000,
+      "currency": "UZS",
+      "pricePerPax": 4490000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 6,
+      "checkIn": "2026-09-20",
+      "checkOut": "2026-09-26"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Standard",
+      "spo": "Georgia Wine"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1565342403917-671ac824577c?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Малайзия",
+      "town": "Куала-Лумпур"
+    },
+    "hotel": {
+      "name": "Современные мегаполисы, тропические острова и богатая природа.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 4.8,
+      "reviewsCount": 510
+    },
+    "package": {
+      "price": 17800000,
+      "currency": "UZS",
+      "pricePerPax": 8900000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 7,
+      "checkIn": "2026-10-02",
+      "checkOut": "2026-10-09"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "City View",
+      "spo": "Malaysia Wonders"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f0a?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
+      "name": "Китай",
+      "town": "Великая стена"
+    },
+    "hotel": {
+      "name": "Великая Китайская стена, древние города и современные мегаполисы.",
+      "sourceUrl": null,
+      "stars": 5,
+      "rating": 4.9,
+      "reviewsCount": 750
+    },
+    "package": {
+      "price": 16980000,
+      "currency": "UZS",
+      "pricePerPax": 8490000,
+      "pax": 2
+    },
+    "duration": {
+      "nights": 8,
+      "checkIn": "2026-10-15",
+      "checkOut": "2026-10-23"
+    },
+    "included": {
+      "meal": "BB",
+      "flightIn": true,
+      "flightOut": true,
+      "roomType": "Standard",
+      "spo": "China Explorer"
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    "destination": {
       "name": "ОАЭ",
       "town": "Шарджа"
     },
