@@ -4,7 +4,31 @@ import { useLanguage } from "@/context/LanguageContext";
 import { Plane, ArrowRight } from "lucide-react";
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const footerText = {
+    en: {
+      destinations: "DESTINATIONS",
+      company: "COMPANY",
+      compliance: "COMPLIANCE",
+      complianceText: "Voya Travel is your premier gateway to the world. We craft bespoke luxury journeys, ensuring comfort, security, and world-class hospitality at every destination."
+    },
+    ru: {
+      destinations: "НАПРАВЛЕНИЯ",
+      company: "КОМПАНИЯ",
+      compliance: "О КОМПАНИИ",
+      complianceText: "Voya Travel — ваш надежный путеводитель по миру. Мы создаем эксклюзивные туристические маршруты, гарантируя комфорт, безопасность и безупречный сервис."
+    },
+    uz: {
+      destinations: "YO'NALISHLAR",
+      company: "KOMPANIYA",
+      compliance: "KOMPANIYA HAQIDA",
+      complianceText: "Voya Travel — dunyo bo'ylab sizning ishonchli yo'lboshchingiz. Biz har bir yo'nalishda qulaylik, xavfsizlik va yuqori darajadagi xizmatni ta'minlab, eksklyuziv sayohatlarni tashkil etamiz."
+    }
+  };
+
+  const currentLang = (language as keyof typeof footerText) || "uz";
+  const localized = footerText[currentLang];
 
   return (
     <footer id="contact" className="bg-brand-deep text-white rounded-card-lg mt-3 px-6 py-14 sm:px-10 sm:py-16">
@@ -37,14 +61,14 @@ export default function Footer() {
             A premium travel aggregator bringing you the finest global holiday experiences from Tashkent.
           </p>
           <address className="not-italic text-sm text-white/80 flex flex-col gap-1">
-            <a href="mailto:booking@voyatravel.uz" className="hover:text-white transition-colors">booking@voyatravel.uz</a>
-            <a href="tel:+12125550148" className="hover:text-white transition-colors">+998 (71) 123-45-67</a>
-            <span className="text-white/55 mt-1 block">100000, Tashkent, Buyuk Ipak Yuli 48</span>
+            <a href="mailto:voyatraveluz@gmail.com" className="hover:text-white transition-colors">voyatraveluz@gmail.com</a>
+            <a href="tel:+998999923325" className="hover:text-white transition-colors">+998 99 992 33 25</a>
+            <span className="text-white/55 mt-1 block">GULISTON SH BIRLASHGAN SHOX K 9/1</span>
           </address>
         </div>
 
         <nav className="flex flex-col gap-3">
-          <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 mb-2">Destinations</h3>
+          <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 mb-2">{localized.destinations}</h3>
           <a href="#tours" className="text-sm text-white/80 hover:text-white transition-colors">Dubai, UAE</a>
           <a href="#tours" className="text-sm text-white/80 hover:text-white transition-colors">Antalya, Turkey</a>
           <a href="#tours" className="text-sm text-white/80 hover:text-white transition-colors">Sharm El Sheikh, Egypt</a>
@@ -52,7 +76,7 @@ export default function Footer() {
         </nav>
 
         <nav className="flex flex-col gap-3">
-          <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 mb-2">Company</h3>
+          <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 mb-2">{localized.company}</h3>
           <a href="/legal" className="text-sm text-white/80 hover:text-white transition-colors">About Us</a>
           <a href="/legal" className="text-sm text-white/80 hover:text-white transition-colors">Careers</a>
           <a href="#contact" className="text-sm text-white/80 hover:text-white transition-colors">Contact</a>
@@ -60,10 +84,10 @@ export default function Footer() {
         
         {/* Requirement №9 Metadata */}
         <div className="flex flex-col gap-3">
-          <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 mb-2">Compliance</h3>
-          <span className="text-sm text-white/80 font-bold">OOO Voya Travel Group</span>
-          <span className="text-sm text-brand-light">License № T-0123-45</span>
-          <span className="text-xs text-white/55 leading-relaxed">Issued by the State Tourism Committee of Uzbekistan</span>
+          <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-white/50 mb-2">{localized.compliance}</h3>
+          <p className="text-sm text-white/70 leading-relaxed">
+            {localized.complianceText}
+          </p>
         </div>
       </div>
 
