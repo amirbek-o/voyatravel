@@ -1,27 +1,29 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import toursEn from "@/data/tours-en.json";
-import toursRu from "@/data/tours-ru.json";
-import toursUz from "@/data/tours-uz.json";
 import TourCard from "@/components/TourCard";
 import CurtainLoader from "@/components/CurtainLoader";
 import SearchWizard from "@/components/SearchWizard";
 import BlueprintSection from "@/components/BlueprintSection";
 import ContinuousMarquee from "@/components/ContinuousMarquee";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Globe, Tag, Headset, Shield, PlaneTakeoff, Building2, CalendarCheck, Mail, Phone, MapPin as MapPinIcon, Clock, User } from "lucide-react";
-
-const allTours = {
-  en: toursEn,
-  ru: toursRu,
-  uz: toursUz
-};
 
 export default function Home() {
   const { t, language } = useLanguage();
   const [isReady, setIsReady] = useState(false);
-  const toursData = allTours[language as keyof typeof allTours] || toursUz;
+  const [toursData, setToursData] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch(`/api/tours?lang=${language}`)
+      .then(res => res.json())
+      .then(json => {
+        if (json.success) {
+          setToursData(json.data);
+        }
+      })
+      .catch(err => console.error("Failed to fetch tours:", err));
+  }, [language]);
 
   const MaskedText = ({ text, delayBase = 0 }: { text: string, delayBase?: number }) => {
     return (

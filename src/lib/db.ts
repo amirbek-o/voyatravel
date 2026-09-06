@@ -31,8 +31,22 @@ export async function initDb() {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
+  const createToursTableQuery = `
+    CREATE TABLE IF NOT EXISTS tours (
+      id SERIAL PRIMARY KEY,
+      target_destination VARCHAR(255) NOT NULL,
+      hotel_title VARCHAR(255) NOT NULL,
+      price NUMERIC NOT NULL,
+      duration_nights INT NOT NULL,
+      room_categories VARCHAR(255) NOT NULL,
+      flight_parameters VARCHAR(255) NOT NULL,
+      image_url TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
   try {
     await query(createTableQuery);
+    await query(createToursTableQuery);
     console.log("Database initialized successfully.");
   } catch (error) {
     console.error("Error initializing database:", error);
