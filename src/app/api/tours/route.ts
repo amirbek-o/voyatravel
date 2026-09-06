@@ -1,70 +1,63 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
-import toursEn from "@/data/tours-en.json";
-import toursRu from "@/data/tours-ru.json";
-import toursUz from "@/data/tours-uz.json";
-
-const allTours = {
-  en: toursEn,
-  ru: toursRu,
-  uz: toursUz
-};
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const lang = searchParams.get('lang') || 'uz';
   
   try {
-    const result = await query("SELECT * FROM tours ORDER BY created_at DESC");
+    const result = await query("SELECT * FROM tours ORDER BY created_at ASC");
     
     // Map DB rows to match the JSON schema so frontend TourCard works without modifications
-    const dbTours = result.rows.map(row => ({
-      id: row.id,
-      destination: {
-        name: row.target_destination.split(', ')[1] || row.target_destination,
-        town: row.target_destination.split(', ')[0] || row.target_destination
-      },
-      hotel: {
-        name: row.hotel_title,
-        sourceUrl: null,
-        stars: 5,
-        rating: 5.0,
-        reviewsCount: 100
-      },
-      package: {
-        price: Number(row.price),
-        currency: "UZS",
-        pricePerPax: Number(row.price) / 2,
-        pax: 2
-      },
-      duration: {
-        nights: row.duration_nights,
-        checkIn: "",
-        checkOut: ""
-      },
-      included: {
-        meal: "", // Can be extended later
-        flightIn: row.flight_parameters.toLowerCase().includes('round') || row.flight_parameters.toLowerCase().includes('in'),
-        flightOut: row.flight_parameters.toLowerCase().includes('round') || row.flight_parameters.toLowerCase().includes('out'),
-        roomType: row.room_categories,
-        spo: ""
-      },
-      imageUrl: row.image_url,
-      isComingSoon: row.is_coming_soon
-    }));
+    const dbTours = result.rows.map(row => {
+      // Pick the correct localized destination string based on 'lang'
+      let destStr = row.destination_uz;
+      if (lang === 'en') destStr = row.destination_en;
+      if (lang === 'ru') destStr = row.destination_ru;
 
-    const staticTours = allTours[lang as keyof typeof allTours] || toursUz;
+      const [town, name] = destStr.split(', ');
 
-    if (searchParams.get('admin') === 'true') {
-      return NextResponse.json({
-        success: true,
-        data: dbTours
-      });
-    }
+      return {
+        id: row.id,
+        destination: {
+          name: name || destStr,
+          town: town || destStr
+        },
+        hotel: {
+          name: row.hotel_name,
+          sourceUrl: null,
+          stars: 5,
+          rating: 5.0,
+          reviewsCount: 100
+        },
+        package: {
+          price: Number(row.price_sum),
+          currency: "UZS",
+          pricePerPax: Number(row.price_sum) / 2,
+          pax: 2
+        },
+        duration: {
+          nights: row.nights,
+          checkIn: "",
+          checkOut: ""
+        },
+        included: {
+          meal: "",
+          flightIn: row.flight_parameters.toLowerCase().includes('round') || row.flight_parameters.toLowerCase().includes('in'),
+          flightOut: row.flight_parameters.toLowerCase().includes('round') || row.flight_parameters.toLowerCase().includes('out'),
+          roomType: row.room_categories,
+          spo: ""
+        },
+        imageUrl: row.image_url,
+        isComingSoon: row.card_status === 'Coming Soon',
+        // Also supply raw db fields for the admin edit modal to consume easily
+        _raw: row
+      };
+    });
 
     return NextResponse.json({
       success: true,
-      data: [...dbTours, ...staticTours]
+      data: dbTours
     });
   } catch (error) {
     console.error("Failed to fetch tours:", error);
@@ -76,16 +69,16 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { 
-      target_destination, hotel_title, price, duration_nights, 
-      room_categories, flight_parameters, image_url, is_coming_soon 
+      hotel_name, price_sum, nights, destination_uz, destination_ru, destination_en,
+      image_url, card_status, room_categories, flight_parameters
     } = body;
 
     const result = await query(
       `INSERT INTO tours (
-        target_destination, hotel_title, price, duration_nights, 
-        room_categories, flight_parameters, image_url, is_coming_soon
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-      [target_destination, hotel_title, price, duration_nights, room_categories, flight_parameters, image_url, is_coming_soon ?? false]
+        hotel_name, price_sum, nights, destination_uz, destination_ru, destination_en,
+        image_url, card_status, room_categories, flight_parameters
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+      [hotel_name, price_sum, nights, destination_uz, destination_ru, destination_en, image_url, card_status || 'Active', room_categories, flight_parameters]
     );
 
     return NextResponse.json({ success: true, data: result.rows[0] });
@@ -99,16 +92,16 @@ export async function PUT(request: Request) {
   try {
     const body = await request.json();
     const { 
-      id, target_destination, hotel_title, price, duration_nights, 
-      room_categories, flight_parameters, image_url, is_coming_soon 
+      id, hotel_name, price_sum, nights, destination_uz, destination_ru, destination_en,
+      image_url, card_status, room_categories, flight_parameters
     } = body;
 
     const result = await query(
       `UPDATE tours SET 
-        target_destination = $1, hotel_title = $2, price = $3, duration_nights = $4, 
-        room_categories = $5, flight_parameters = $6, image_url = $7, is_coming_soon = $8
-      WHERE id = $9 RETURNING *`,
-      [target_destination, hotel_title, price, duration_nights, room_categories, flight_parameters, image_url, is_coming_soon ?? false, id]
+        hotel_name = $1, price_sum = $2, nights = $3, destination_uz = $4, destination_ru = $5, destination_en = $6,
+        image_url = $7, card_status = $8, room_categories = $9, flight_parameters = $10
+      WHERE id = $11 RETURNING *`,
+      [hotel_name, price_sum, nights, destination_uz, destination_ru, destination_en, image_url, card_status || 'Active', room_categories, flight_parameters, id]
     );
 
     return NextResponse.json({ success: true, data: result.rows[0] });

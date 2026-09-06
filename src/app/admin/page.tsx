@@ -45,14 +45,16 @@ export default function AdminDashboard() {
   const [editingTourId, setEditingTourId] = useState<number | null>(null);
 
   const [formData, setFormData] = useState({
-    target_destination: "",
-    hotel_title: "",
-    price: "",
-    duration_nights: "",
+    hotel_name: "",
+    price_sum: "",
+    nights: "",
+    destination_uz: "",
+    destination_ru: "",
+    destination_en: "",
     room_categories: "",
     flight_parameters: "",
     image_url: "",
-    is_coming_soon: false
+    card_status: "Active"
   });
 
   useEffect(() => {
@@ -123,21 +125,24 @@ export default function AdminDashboard() {
 
   const openAddModal = () => {
     setEditingTourId(null);
-    setFormData({ target_destination: "", hotel_title: "", price: "", duration_nights: "", room_categories: "", flight_parameters: "", image_url: "", is_coming_soon: false });
+    setFormData({ hotel_name: "", price_sum: "", nights: "", destination_uz: "", destination_ru: "", destination_en: "", room_categories: "", flight_parameters: "", image_url: "", card_status: "Active" });
     setIsModalOpen(true);
   };
 
-  const openEditModal = (tour: Tour) => {
+  const openEditModal = (tour: any) => {
     setEditingTourId(tour.id);
+    const raw = tour._raw || {};
     setFormData({
-      target_destination: `${tour.destination.town}, ${tour.destination.name}`,
-      hotel_title: tour.hotel.name,
-      price: tour.package.price.toString(),
-      duration_nights: tour.duration.nights.toString(),
-      room_categories: tour.included.roomType,
-      flight_parameters: tour.included.flightIn ? "Round Trip" : "One Way",
-      image_url: tour.imageUrl,
-      is_coming_soon: tour.isComingSoon || false
+      hotel_name: raw.hotel_name || tour.hotel.name,
+      price_sum: raw.price_sum ? raw.price_sum.toString() : tour.package.price.toString(),
+      nights: raw.nights ? raw.nights.toString() : tour.duration.nights.toString(),
+      destination_uz: raw.destination_uz || `${tour.destination.town}, ${tour.destination.name}`,
+      destination_ru: raw.destination_ru || `${tour.destination.town}, ${tour.destination.name}`,
+      destination_en: raw.destination_en || `${tour.destination.town}, ${tour.destination.name}`,
+      room_categories: raw.room_categories || tour.included.roomType,
+      flight_parameters: raw.flight_parameters || (tour.included.flightIn ? "Round Trip" : "One Way"),
+      image_url: raw.image_url || tour.imageUrl,
+      card_status: raw.card_status || (tour.isComingSoon ? "Coming Soon" : "Active")
     });
     setIsModalOpen(true);
   };
@@ -149,8 +154,8 @@ export default function AdminDashboard() {
       const payload = {
         ...(editingTourId ? { id: editingTourId } : {}),
         ...formData,
-        price: Number(formData.price),
-        duration_nights: Number(formData.duration_nights)
+        price_sum: Number(formData.price_sum),
+        nights: Number(formData.nights)
       };
 
       const res = await fetch("/api/tours", {
@@ -435,20 +440,28 @@ export default function AdminDashboard() {
             <h2 className="text-2xl font-bold mb-6">{editingTourId ? "Edit Tour Package" : "Add New Package Tour"}</h2>
             <form onSubmit={handleSaveTour} className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-1 md:col-span-2">
-                <label className="text-xs text-white/60 font-medium">Hotel Title</label>
-                <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.hotel_title} onChange={e => setFormData({...formData, hotel_title: e.target.value})} placeholder="e.g. Rixos Premium Belek" />
+                <label className="text-xs text-white/60 font-medium">Hotel Name</label>
+                <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.hotel_name} onChange={e => setFormData({...formData, hotel_name: e.target.value})} placeholder="e.g. Rixos Premium Belek" />
               </div>
               <div className="space-y-1">
-                <label className="text-xs text-white/60 font-medium">Target Destination</label>
-                <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.target_destination} onChange={e => setFormData({...formData, target_destination: e.target.value})} placeholder="e.g. Antalya, Turkey" />
+                <label className="text-xs text-white/60 font-medium">Destination (UZ)</label>
+                <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.destination_uz} onChange={e => setFormData({...formData, destination_uz: e.target.value})} placeholder="e.g. Antaliya, Turkiya" />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs text-white/60 font-medium">Destination (RU)</label>
+                <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.destination_ru} onChange={e => setFormData({...formData, destination_ru: e.target.value})} placeholder="e.g. Анталия, Турция" />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs text-white/60 font-medium">Destination (EN)</label>
+                <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.destination_en} onChange={e => setFormData({...formData, destination_en: e.target.value})} placeholder="e.g. Antalya, Turkey" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs text-white/60 font-medium">Price in Uzbek Sums</label>
-                <input required type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} placeholder="e.g. 15000000" />
+                <input required type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.price_sum} onChange={e => setFormData({...formData, price_sum: e.target.value})} placeholder="e.g. 15000000" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs text-white/60 font-medium">Duration Nights</label>
-                <input required type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.duration_nights} onChange={e => setFormData({...formData, duration_nights: e.target.value})} placeholder="e.g. 7" />
+                <input required type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.nights} onChange={e => setFormData({...formData, nights: e.target.value})} placeholder="e.g. 7" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs text-white/60 font-medium">Room Categories</label>
@@ -460,9 +473,9 @@ export default function AdminDashboard() {
               </div>
               <div className="space-y-1">
                 <label className="text-xs text-white/60 font-medium">Card Display Status</label>
-                <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none [&>option]:bg-[#0D2B45]" value={formData.is_coming_soon ? "true" : "false"} onChange={e => setFormData({...formData, is_coming_soon: e.target.value === "true"})}>
-                  <option value="false">Active</option>
-                  <option value="true">Coming Soon</option>
+                <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none [&>option]:bg-[#0D2B45]" value={formData.card_status} onChange={e => setFormData({...formData, card_status: e.target.value})}>
+                  <option value="Active">Active</option>
+                  <option value="Coming Soon">Coming Soon</option>
                 </select>
               </div>
               <div className="space-y-1 md:col-span-2">
