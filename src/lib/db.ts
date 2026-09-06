@@ -41,12 +41,15 @@ export async function initDb() {
       room_categories VARCHAR(255) NOT NULL,
       flight_parameters VARCHAR(255) NOT NULL,
       image_url TEXT NOT NULL,
+      is_coming_soon BOOLEAN DEFAULT false,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
+  const alterToursTableQuery = `ALTER TABLE tours ADD COLUMN IF NOT EXISTS is_coming_soon BOOLEAN DEFAULT false;`;
   try {
     await query(createTableQuery);
     await query(createToursTableQuery);
+    await query(alterToursTableQuery);
     console.log("Database initialized successfully.");
   } catch (error) {
     console.error("Error initializing database:", error);

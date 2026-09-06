@@ -6,9 +6,16 @@ import BookingModal from "./BookingModal";
 import { useState, useRef, useEffect } from "react";
 
 export default function TourCard({ tour, index = 0 }: { tour: any, index?: number }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  const comingSoonText = {
+    en: "Coming Soon",
+    ru: "Скоро",
+    uz: "Tez Kunda"
+  };
+  const localizedComingSoon = comingSoonText[(language as keyof typeof comingSoonText) || "uz"];
 
   // Minimal InView Reveal Logic
   const [inView, setInView] = useState(false);
@@ -30,17 +37,21 @@ export default function TourCard({ tour, index = 0 }: { tour: any, index?: numbe
     <>
       <div
         ref={cardRef}
-        className={`group bg-brand-deep border border-brand-deep/20 rounded-card overflow-hidden flex flex-col h-[32rem] cursor-pointer relative transition-all duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)] ${
+        className={`group bg-brand-deep border border-brand-deep/20 rounded-card overflow-hidden flex flex-col h-[32rem] relative transition-all duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)] ${
           inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[48px]"
-        } hover:scale-[1.02] hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(13,43,69,0.25)]`}
+        } hover:scale-[1.02] hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(13,43,69,0.25)] ${!tour.isComingSoon ? "cursor-pointer" : "cursor-default"}`}
         style={{ transitionDelay: `${index * 140}ms` }}
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          if (!tour.isComingSoon) setIsModalOpen(true);
+        }}
       >
         {/* MEDIA SECTION - TOP 40% */}
         <div className="relative w-full h-[45%] shrink-0 border-b border-gray-200 overflow-hidden">
           {/* Zoomable Background Layer */}
           <div 
-            className="absolute inset-0 transition-transform duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
+            className={`absolute inset-0 transition-transform duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105 ${
+              tour.isComingSoon ? "opacity-60 blur-sm grayscale-[30%]" : ""
+            }`}
             style={{
               backgroundImage: `url('${tour.imageUrl || "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop"}')`,
               backgroundSize: 'cover',
@@ -103,10 +114,16 @@ export default function TourCard({ tour, index = 0 }: { tour: any, index?: numbe
               <p className="text-xs text-ink-soft mt-1">{t.tour.perPerson}</p>
             </div>
             
-            <button className="inline-flex items-center gap-2 rounded-pill px-5 py-2.5 text-xs font-bold uppercase tracking-wide border border-brand text-white bg-brand hover:scale-105 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/30 transition-all duration-300">
-              {t.tour.bookNow}
-              <ArrowRight className="w-4 h-4 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:rotate-[-45deg]" />
-            </button>
+            {tour.isComingSoon ? (
+              <span className="inline-flex items-center justify-center rounded-pill px-5 py-2.5 text-xs font-bold uppercase tracking-wide border border-brand-deep/20 text-brand-deep/50 bg-brand-deep/5 select-none pointer-events-none">
+                {localizedComingSoon}
+              </span>
+            ) : (
+              <button className="inline-flex items-center gap-2 rounded-pill px-5 py-2.5 text-xs font-bold uppercase tracking-wide border border-brand text-white bg-brand hover:scale-105 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/30 transition-all duration-300">
+                {t.tour.bookNow}
+                <ArrowRight className="w-4 h-4 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:rotate-[-45deg]" />
+              </button>
+            )}
           </div>
         </div>
       </div>

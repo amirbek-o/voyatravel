@@ -49,7 +49,8 @@ export async function GET(request: Request) {
         roomType: row.room_categories,
         spo: ""
       },
-      imageUrl: row.image_url
+      imageUrl: row.image_url,
+      isComingSoon: row.is_coming_soon
     }));
 
     const staticTours = allTours[lang as keyof typeof allTours] || toursUz;
@@ -76,15 +77,15 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { 
       target_destination, hotel_title, price, duration_nights, 
-      room_categories, flight_parameters, image_url 
+      room_categories, flight_parameters, image_url, is_coming_soon 
     } = body;
 
     const result = await query(
       `INSERT INTO tours (
         target_destination, hotel_title, price, duration_nights, 
-        room_categories, flight_parameters, image_url
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      [target_destination, hotel_title, price, duration_nights, room_categories, flight_parameters, image_url]
+        room_categories, flight_parameters, image_url, is_coming_soon
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+      [target_destination, hotel_title, price, duration_nights, room_categories, flight_parameters, image_url, is_coming_soon ?? false]
     );
 
     return NextResponse.json({ success: true, data: result.rows[0] });
@@ -99,15 +100,15 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { 
       id, target_destination, hotel_title, price, duration_nights, 
-      room_categories, flight_parameters, image_url 
+      room_categories, flight_parameters, image_url, is_coming_soon 
     } = body;
 
     const result = await query(
       `UPDATE tours SET 
         target_destination = $1, hotel_title = $2, price = $3, duration_nights = $4, 
-        room_categories = $5, flight_parameters = $6, image_url = $7
-      WHERE id = $8 RETURNING *`,
-      [target_destination, hotel_title, price, duration_nights, room_categories, flight_parameters, image_url, id]
+        room_categories = $5, flight_parameters = $6, image_url = $7, is_coming_soon = $8
+      WHERE id = $9 RETURNING *`,
+      [target_destination, hotel_title, price, duration_nights, room_categories, flight_parameters, image_url, is_coming_soon ?? false, id]
     );
 
     return NextResponse.json({ success: true, data: result.rows[0] });

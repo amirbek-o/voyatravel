@@ -24,29 +24,26 @@ type Tour = {
   duration: { nights: number };
   included: { flightIn: boolean; flightOut: boolean; roomType: string };
   imageUrl: string;
+  isComingSoon?: boolean;
 };
 
 export default function AdminDashboard() {
-  // Auth state
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState(false);
-
-  // Tabs state
   const [activeTab, setActiveTab] = useState<"crm" | "tours">("crm");
 
-  // CRM state
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isCrmLoading, setIsCrmLoading] = useState(true);
   const [filter, setFilter] = useState("All");
 
-  // Tours state
   const [tours, setTours] = useState<Tour[]>([]);
   const [isToursLoading, setIsToursLoading] = useState(false);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  
+  // Modals state
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTourId, setEditingTourId] = useState<number | null>(null);
 
-  // Form State
   const [formData, setFormData] = useState({
     target_destination: "",
     hotel_title: "",
@@ -54,7 +51,8 @@ export default function AdminDashboard() {
     duration_nights: "",
     room_categories: "",
     flight_parameters: "",
-    image_url: ""
+    image_url: "",
+    is_coming_soon: false
   });
 
   useEffect(() => {
@@ -123,48 +121,14 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleCreateTour = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const res = await fetch("/api/tours", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          price: Number(formData.price),
-          duration_nights: Number(formData.duration_nights)
-        })
-      });
-      if (res.ok) {
-        setIsAddModalOpen(false);
-        setFormData({ target_destination: "", hotel_title: "", price: "", duration_nights: "", room_categories: "", flight_parameters: "", image_url: "" });
-        fetchTours();
-      }
-    } catch (error) {
-      console.error("Error creating tour:", error);
-    }
+  const openAddModal = () => {
+    setEditingTourId(null);
+    setFormData({ target_destination: "", hotel_title: "", price: "", duration_nights: "", room_categories: "", flight_parameters: "", image_url: "", is_coming_soon: false });
+    setIsModalOpen(true);
   };
 
-  const handleUpdateTour = async (id: number) => {
-    try {
-      await fetch("/api/tours", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id,
-          ...formData,
-          price: Number(formData.price),
-          duration_nights: Number(formData.duration_nights)
-        })
-      });
-      setEditingTourId(null);
-      fetchTours();
-    } catch (error) {
-      console.error("Error updating tour:", error);
-    }
-  };
-
-  const startEditing = (tour: Tour) => {
+  const openEditModal = (tour: Tour) => {
+    setEditingTourId(tour.id);
     setFormData({
       target_destination: `${tour.destination.town}, ${tour.destination.name}`,
       hotel_title: tour.hotel.name,
@@ -172,9 +136,35 @@ export default function AdminDashboard() {
       duration_nights: tour.duration.nights.toString(),
       room_categories: tour.included.roomType,
       flight_parameters: tour.included.flightIn ? "Round Trip" : "One Way",
-      image_url: tour.imageUrl
+      image_url: tour.imageUrl,
+      is_coming_soon: tour.isComingSoon || false
     });
-    setEditingTourId(tour.id);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveTour = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const method = editingTourId ? "PUT" : "POST";
+      const payload = {
+        ...(editingTourId ? { id: editingTourId } : {}),
+        ...formData,
+        price: Number(formData.price),
+        duration_nights: Number(formData.duration_nights)
+      };
+
+      const res = await fetch("/api/tours", {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        setIsModalOpen(false);
+        fetchTours();
+      }
+    } catch (error) {
+      console.error("Error saving tour:", error);
+    }
   };
 
   if (!isUnlocked) {
@@ -373,7 +363,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Live Catalog Manager</h2>
             <button 
-              onClick={() => setIsAddModalOpen(true)}
+              onClick={openAddModal}
               className="flex items-center gap-2 bg-gold hover:bg-gold/90 text-brand-deep px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg transition-transform hover:scale-105"
             >
               <Plus className="w-4 h-4" /> Add New Package Tour
@@ -388,7 +378,7 @@ export default function AdminDashboard() {
                     <th className="p-4 pl-6 font-medium">Hotel & Destination</th>
                     <th className="p-4 font-medium">Price (UZS)</th>
                     <th className="p-4 font-medium">Duration</th>
-                    <th className="p-4 font-medium">Room & Flight</th>
+                    <th className="p-4 font-medium">Status</th>
                     <th className="p-4 pr-6 font-medium text-right">Actions</th>
                   </tr>
                 </thead>
@@ -400,48 +390,31 @@ export default function AdminDashboard() {
                   ) : (
                     tours.map((tour) => (
                       <tr key={tour.id} className="hover:bg-white/5 transition-colors group">
-                        {editingTourId === tour.id ? (
-                          <td colSpan={5} className="p-6 bg-white/10 relative">
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                              <input type="text" placeholder="Target Destination" className="col-span-1 bg-black/30 border border-white/20 rounded-lg p-2 text-sm" value={formData.target_destination} onChange={e => setFormData({...formData, target_destination: e.target.value})} />
-                              <input type="text" placeholder="Hotel Title" className="col-span-1 md:col-span-2 bg-black/30 border border-white/20 rounded-lg p-2 text-sm" value={formData.hotel_title} onChange={e => setFormData({...formData, hotel_title: e.target.value})} />
-                              <input type="number" placeholder="Price (UZS)" className="col-span-1 bg-black/30 border border-white/20 rounded-lg p-2 text-sm" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} />
-                              <input type="number" placeholder="Nights" className="col-span-1 bg-black/30 border border-white/20 rounded-lg p-2 text-sm" value={formData.duration_nights} onChange={e => setFormData({...formData, duration_nights: e.target.value})} />
-                              <input type="text" placeholder="Room Type" className="col-span-1 bg-black/30 border border-white/20 rounded-lg p-2 text-sm" value={formData.room_categories} onChange={e => setFormData({...formData, room_categories: e.target.value})} />
-                              <input type="text" placeholder="Flight params" className="col-span-1 bg-black/30 border border-white/20 rounded-lg p-2 text-sm" value={formData.flight_parameters} onChange={e => setFormData({...formData, flight_parameters: e.target.value})} />
-                              <input type="text" placeholder="Image URL" className="col-span-1 md:col-span-3 bg-black/30 border border-white/20 rounded-lg p-2 text-sm" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} />
-                              <div className="col-span-1 flex justify-end items-end gap-2">
-                                <button onClick={() => setEditingTourId(null)} className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs"><X className="w-4 h-4"/></button>
-                                <button onClick={() => handleUpdateTour(tour.id)} className="px-3 py-2 bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40 rounded-lg text-xs font-bold flex items-center gap-1"><Check className="w-4 h-4"/> Save</button>
-                              </div>
-                            </div>
-                          </td>
-                        ) : (
-                          <>
-                            <td className="p-4 pl-6">
-                              <p className="font-medium text-white">{tour.hotel.name}</p>
-                              <p className="text-xs text-white/50">{tour.destination.town}, {tour.destination.name}</p>
-                            </td>
-                            <td className="p-4">
-                              <p className="text-sm text-gold font-mono">{tour.package.price.toLocaleString()} UZS</p>
-                            </td>
-                            <td className="p-4">
-                              <p className="text-sm">{tour.duration.nights} Nights</p>
-                            </td>
-                            <td className="p-4">
-                              <p className="text-sm truncate max-w-[150px]">{tour.included.roomType}</p>
-                              <p className="text-xs text-white/50">{tour.included.flightIn ? "Round Trip" : "One Way"}</p>
-                            </td>
-                            <td className="p-4 pr-6 text-right">
-                              <button 
-                                onClick={() => startEditing(tour)}
-                                className="inline-flex items-center gap-1 text-xs px-3 py-1.5 bg-white/5 hover:bg-white/20 rounded-md border border-white/10 transition-colors"
-                              >
-                                <Edit2 className="w-3 h-3" /> Edit / Редактировать
-                              </button>
-                            </td>
-                          </>
-                        )}
+                        <td className="p-4 pl-6">
+                          <p className="font-medium text-white">{tour.hotel.name}</p>
+                          <p className="text-xs text-white/50">{tour.destination.town}, {tour.destination.name}</p>
+                        </td>
+                        <td className="p-4">
+                          <p className="text-sm text-gold font-mono">{tour.package.price.toLocaleString()} UZS</p>
+                        </td>
+                        <td className="p-4">
+                          <p className="text-sm">{tour.duration.nights} Nights</p>
+                        </td>
+                        <td className="p-4">
+                          {tour.isComingSoon ? (
+                            <span className="px-2 py-1 bg-purple-500/20 text-purple-400 rounded-md text-xs font-bold uppercase tracking-wider border border-purple-500/30">Coming Soon</span>
+                          ) : (
+                            <span className="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded-md text-xs font-bold uppercase tracking-wider border border-emerald-500/30">Active</span>
+                          )}
+                        </td>
+                        <td className="p-4 pr-6 text-right">
+                          <button 
+                            onClick={() => openEditModal(tour)}
+                            className="inline-flex items-center gap-1 text-xs px-3 py-1.5 bg-white/5 hover:bg-white/20 rounded-md border border-white/10 transition-colors"
+                          >
+                            <Edit2 className="w-3 h-3" /> Edit / Изменить
+                          </button>
+                        </td>
                       </tr>
                     ))
                   )}
@@ -452,15 +425,15 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      {/* Add Tour Modal */}
-      {isAddModalOpen && (
+      {/* Tour Modal (Add/Edit) */}
+      {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <div className="w-full max-w-2xl bg-[#0D2B45] border border-white/20 rounded-3xl p-6 md:p-8 shadow-2xl relative">
-            <button onClick={() => setIsAddModalOpen(false)} className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
+            <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
               <X className="w-6 h-6" />
             </button>
-            <h2 className="text-2xl font-bold mb-6">Add New Package Tour</h2>
-            <form onSubmit={handleCreateTour} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <h2 className="text-2xl font-bold mb-6">{editingTourId ? "Edit Tour Package" : "Add New Package Tour"}</h2>
+            <form onSubmit={handleSaveTour} className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-1 md:col-span-2">
                 <label className="text-xs text-white/60 font-medium">Hotel Title</label>
                 <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.hotel_title} onChange={e => setFormData({...formData, hotel_title: e.target.value})} placeholder="e.g. Rixos Premium Belek" />
@@ -486,12 +459,19 @@ export default function AdminDashboard() {
                 <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.flight_parameters} onChange={e => setFormData({...formData, flight_parameters: e.target.value})} placeholder="e.g. Round Trip, Charter" />
               </div>
               <div className="space-y-1">
+                <label className="text-xs text-white/60 font-medium">Card Display Status</label>
+                <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none [&>option]:bg-[#0D2B45]" value={formData.is_coming_soon ? "true" : "false"} onChange={e => setFormData({...formData, is_coming_soon: e.target.value === "true"})}>
+                  <option value="false">Active</option>
+                  <option value="true">Coming Soon</option>
+                </select>
+              </div>
+              <div className="space-y-1 md:col-span-2">
                 <label className="text-xs text-white/60 font-medium">Image URL Text Block</label>
                 <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 focus:border-gold focus:ring-1 focus:ring-gold outline-none" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="e.g. /images/hotels/rixos.jpg or https://..." />
               </div>
               <div className="md:col-span-2 mt-4">
                 <button type="submit" className="w-full bg-gold text-brand-deep font-bold text-lg py-3 rounded-xl shadow-lg hover:bg-gold/90 transition-colors">
-                  Publish to Live Catalog
+                  {editingTourId ? "Save Changes" : "Publish to Live Catalog"}
                 </button>
               </div>
             </form>
