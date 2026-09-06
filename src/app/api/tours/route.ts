@@ -1,11 +1,44 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
+import toursEn from "@/data/tours-en.json";
+import toursRu from "@/data/tours-ru.json";
+import toursUz from "@/data/tours-uz.json";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const lang = searchParams.get('lang') || 'uz';
   
   try {
+    const countRes = await query("SELECT COUNT(*) FROM tours");
+    const count = parseInt(countRes.rows[0].count, 10);
+
+    if (count === 0) {
+      for (let i = 0; i < toursUz.length; i++) {
+        const u = toursUz[i] as any;
+        const r = toursRu[i] as any;
+        const e = toursEn[i] as any;
+
+        const hotelName = u.hotel.name;
+        const priceSum = u.package.price;
+        const nights = u.duration.nights;
+        const destUz = `${u.destination.town}, ${u.destination.name}`;
+        const destRu = `${r.destination.town}, ${r.destination.name}`;
+        const destEn = `${e.destination.town}, ${e.destination.name}`;
+        const imageUrl = u.imageUrl || "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop";
+        const cardStatus = 'Active';
+        const roomCategories = u.included.roomType || "Standard Room";
+        const flightParams = (u.included.flightIn && u.included.flightOut) ? "Round Trip" : "One Way";
+
+        await query(
+          `INSERT INTO tours (
+            hotel_name, price_sum, nights, destination_uz, destination_ru, destination_en,
+            image_url, card_status, room_categories, flight_parameters
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+          [hotelName, priceSum, nights, destUz, destRu, destEn, imageUrl, cardStatus, roomCategories, flightParams]
+        );
+      }
+    }
+
     const result = await query("SELECT * FROM tours ORDER BY created_at ASC");
     
     // Map DB rows to match the JSON schema so frontend TourCard works without modifications
