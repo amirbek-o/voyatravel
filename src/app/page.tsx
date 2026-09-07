@@ -232,7 +232,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-white/90 mb-1 text-sm uppercase tracking-wider">{(t as any).contactsBlock?.hours || "Ish vaqti"}</h4>
-                      <p className="text-[#FFF2E2]/70">08:00 - 20:00</p>
+                      <p className="text-[#FFF2E2]/70">{(t as any).contactsBlock?.workingDaysAndHours || "Dushanba - Shanba, 08:00 - 20:00"}</p>
                     </div>
                   </div>
 

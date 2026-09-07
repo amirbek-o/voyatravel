@@ -74,6 +74,7 @@ export const translations = {
       whatsapp: "WHATSAPP",
       telegram: "TELEGRAM",
       hours: "Working hours",
+      workingDaysAndHours: "Monday - Saturday, 08:00 - 20:00",
       director: "Director",
       desc: "Travel agency in Uzbekistan. Tours, flights, hotels, and full travel organization."
     }
@@ -147,6 +148,7 @@ export const translations = {
       whatsapp: "WHATSAPP",
       telegram: "TELEGRAM",
       hours: "Режим работы",
+      workingDaysAndHours: "Понедельник - Суббота, 08:00 - 20:00",
       director: "Директор",
       desc: "Туристическое агентство в Узбекистане. Туры, авиабилеты, отели и полная организация путешествий."
     }
@@ -220,6 +222,7 @@ export const translations = {
       whatsapp: "WHATSAPP",
       telegram: "TELEGRAM",
       hours: "Ish vaqti",
+      workingDaysAndHours: "Dushanba - Shanba, 08:00 - 20:00",
       director: "Direktor",
       desc: "Oʻzbekistondagi turizm agentligi. Turlar, aviachiptalar, mehmonxonalar va sayohatni to‘liq tashkil qilish."
     }
