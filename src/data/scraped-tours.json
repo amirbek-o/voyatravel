@@ -29,7 +29,7 @@
       "roomType": "City View",
       "spo": "Paris Love"
     },
-    "imageUrl": "https://images.unsplash.com/photo-1502602898657-3e90760020c2?q=80&w=800&auto=format&fit=crop"
+    "imageUrl": "/images/hotels/paris.jpg"
   },
   {
     "destination": {
@@ -157,7 +157,7 @@
       "roomType": "Premium",
       "spo": "Uzbekistan Heritage"
     },
-    "imageUrl": "https://images.unsplash.com/photo-1528659103597-4043b2db6ef2?q=80&w=800&auto=format&fit=crop"
+    "imageUrl": "/images/hotels/samarqand.jpg"
   },
   {
     "destination": {
@@ -189,7 +189,7 @@
       "roomType": "Sea View",
       "spo": "Turkey Special"
     },
-    "imageUrl": "https://images.unsplash.com/photo-1522083165195-3444dd615307?q=80&w=800&auto=format&fit=crop"
+    "imageUrl": "/images/hotels/istanbul.png"
   },
   {
     "destination": {
@@ -381,7 +381,7 @@
       "roomType": "City View",
       "spo": "Malaysia Wonders"
     },
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f0a?q=80&w=800&auto=format&fit=crop"
+    "imageUrl": "/images/hotels/kuala_lumpur.jpg"
   },
   {
     "destination": {
@@ -887,7 +887,7 @@
       "roomType": "Standard Room",
       "spo": "Uni Sharm ( Ex Karma Hotel ) - Special Offer"
     },
-    "imageUrl": "https://images.unsplash.com/photo-1551043047-1d2adf00f3ef?q=80&w=800&auto=format&fit=crop"
+    "imageUrl": "/images/hotels/new_badawia_hotel.png"
   },
   {
     "destination": {
