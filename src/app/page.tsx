@@ -102,31 +102,31 @@ export default function Home() {
         {/* Nima uchun Voya Section */}
         <section id="about" className="py-16 relative z-10 bg-brand-deep/30 backdrop-blur-lg border-y border-white/5 mt-4 mb-12">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-10 text-left tracking-tight border-b border-white/20 pb-4">Nima uchun Voya?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-10 text-left tracking-tight border-b border-white/20 pb-4">{(t as any).whyVoya?.title || "Nima uchun Voya?"}</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="flex flex-col items-center gap-4 text-center">
                 <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center">
                   <Globe className="w-8 h-8 text-white" />
                 </div>
-                <p className="text-white font-medium text-sm md:text-base leading-snug">Eng yaxshi<br/>yo'nalishlar</p>
+                <p className="text-white font-medium text-sm md:text-base leading-snug">{(t as any).whyVoya?.item1 || "Eng yaxshi yo'nalishlar"}</p>
               </div>
               <div className="flex flex-col items-center gap-4 text-center">
                 <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center">
                   <Tag className="w-8 h-8 text-white" />
                 </div>
-                <p className="text-white font-medium text-sm md:text-base leading-snug">Qulay narxlar<br/>va aksiyalar</p>
+                <p className="text-white font-medium text-sm md:text-base leading-snug">{(t as any).whyVoya?.item2 || "Qulay narxlar va aksiyalar"}</p>
               </div>
               <div className="flex flex-col items-center gap-4 text-center">
                 <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center">
                   <Headset className="w-8 h-8 text-white" />
                 </div>
-                <p className="text-white font-medium text-sm md:text-base leading-snug">24/7 qo'llab-<br/>quvvatlash</p>
+                <p className="text-white font-medium text-sm md:text-base leading-snug">{(t as any).whyVoya?.item3 || "24/7 qo'llab-quvvatlash"}</p>
               </div>
               <div className="flex flex-col items-center gap-4 text-center">
                 <div className="w-16 h-16 rounded-[20px] bg-white/10 flex items-center justify-center">
                   <Shield className="w-8 h-8 text-white" />
                 </div>
-                <p className="text-white font-medium text-sm md:text-base leading-snug">Ishonchli va<br/>xavfsiz xizmat</p>
+                <p className="text-white font-medium text-sm md:text-base leading-snug">{(t as any).whyVoya?.item4 || "Ishonchli va xavfsiz xizmat"}</p>
               </div>
             </div>
           </div>
@@ -136,15 +136,15 @@ export default function Home() {
         <section id="services" className="py-24 relative z-10">
           <div className="max-w-7xl mx-auto px-4">
             <div className="mb-16 text-center">
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 tracking-tight">{(t.nav as any).services || "Xizmatlar"}</h2>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 tracking-tight">{(t as any).services?.title || "Xizmatlar"}</h2>
               <div className="w-16 h-1 bg-brand mx-auto rounded-full"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { title: "Turlar", icon: Globe, desc: "Dunyo bo'ylab unutilmas sayohatlar" },
-                { title: "Aviachiptalar", icon: PlaneTakeoff, desc: "Hamyonbop va qulay parvozlar" },
-                { title: "Mehmonxonalar", icon: Building2, desc: "Eng yaxshi mehmonxonalarni band qilish" },
-                { title: "To'liq Tashkil Qilish", icon: CalendarCheck, desc: "Hujjatlar va sug'urta xizmatlari" },
+                { title: (t as any).services?.cards?.[0]?.title || "Turlar", icon: Globe, desc: (t as any).services?.cards?.[0]?.desc || "Dunyo bo'ylab unutilmas sayohatlar" },
+                { title: (t as any).services?.cards?.[1]?.title || "Aviachiptalar", icon: PlaneTakeoff, desc: (t as any).services?.cards?.[1]?.desc || "Hamyonbop va qulay parvozlar" },
+                { title: (t as any).services?.cards?.[2]?.title || "Mehmonxonalar", icon: Building2, desc: (t as any).services?.cards?.[2]?.desc || "Eng yaxshi mehmonxonalarni band qilish" },
+                { title: (t as any).services?.cards?.[3]?.title || "To'liq Tashkil Qilish", icon: CalendarCheck, desc: (t as any).services?.cards?.[3]?.desc || "Hujjatlar va sug'urta xizmatlari" },
               ].map((service, i) => (
                 <div key={i} className="group bg-brand-deep/80 backdrop-blur-md border border-white/10 rounded-[2rem] p-8 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-2 hover:bg-brand hover:border-brand shadow-xl">
                   <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">

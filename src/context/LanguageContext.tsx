@@ -67,6 +67,22 @@ export const translations = {
       address: "Address",
       hours: "Hours",
     },
+    whyVoya: {
+      title: "Why choose Voya?",
+      item1: "Best Destinations",
+      item2: "Great Prices & Deals",
+      item3: "24/7 Customer Support",
+      item4: "Reliable & Secure Service"
+    },
+    services: {
+      title: "Services",
+      cards: [
+        { title: "Tours", desc: "Unforgettable journeys worldwide" },
+        { title: "Flight Tickets", desc: "Affordable and convenient flights" },
+        { title: "Hotels", desc: "Booking the finest accommodation properties" },
+        { title: "Full Management", desc: "Documentation processing and travel insurance" }
+      ]
+    },
     contactsBlock: {
       address: "Address",
       phone: "Phone",
@@ -141,6 +157,22 @@ export const translations = {
       address: "Адрес",
       hours: "Часы работы",
     },
+    whyVoya: {
+      title: "Почему Voya?",
+      item1: "Лучшие направления",
+      item2: "Выгодные цены и акции",
+      item3: "Поддержка 24/7",
+      item4: "Надежный и безопасный сервис"
+    },
+    services: {
+      title: "Услуги",
+      cards: [
+        { title: "Туры", desc: "Незабываемые путешествия по всему миру" },
+        { title: "Авиабилеты", desc: "Доступные и комфортные перелеты" },
+        { title: "Отели", desc: "Бронирование лучших отелей" },
+        { title: "Полная Организация", desc: "Оформление документов и страхование" }
+      ]
+    },
     contactsBlock: {
       address: "Адрес",
       phone: "Телефон",
@@ -214,6 +246,22 @@ export const translations = {
       license: "Litsenziya",
       address: "Manzil",
       hours: "Ish vaqti",
+    },
+    whyVoya: {
+      title: "Nima uchun Voya?",
+      item1: "Eng yaxshi yo'nalishlar",
+      item2: "Qulay narxlar va aksiyalar",
+      item3: "24/7 qo'llab-quvvatlash",
+      item4: "Ishonchli va xavfsiz xizmat"
+    },
+    services: {
+      title: "Xizmatlar",
+      cards: [
+        { title: "Turlar", desc: "Dunyo bo'ylab unutilmas sayohatlar" },
+        { title: "Aviachiptalar", desc: "Hamyonbop va qulay parvozlar" },
+        { title: "Mehmonxonalar", desc: "Eng yaxshi mehmonxonalarni band qilish" },
+        { title: "To'liq Tashkil Qilish", desc: "Hujjatlar va sug'urta xizmatlari" }
+      ]
     },
     contactsBlock: {
       address: "Manzil",
