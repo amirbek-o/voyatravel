@@ -7,6 +7,7 @@ import SearchWizard from "@/components/SearchWizard";
 import BlueprintSection from "@/components/BlueprintSection";
 import ContinuousMarquee from "@/components/ContinuousMarquee";
 import { useState, useEffect } from "react";
+import staticToursData from "@/data/scraped-tours.json";
 import { Globe, Tag, Headset, Shield, PlaneTakeoff, Building2, CalendarCheck, Mail, Phone, MapPin as MapPinIcon, Clock, User } from "lucide-react";
 
 export default function Home() {
@@ -15,14 +16,8 @@ export default function Home() {
   const [toursData, setToursData] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(`/api/tours?lang=${language}`)
-      .then(res => res.json())
-      .then(json => {
-        if (json.success) {
-          setToursData(json.data);
-        }
-      })
-      .catch(err => console.error("Failed to fetch tours:", err));
+    // EMERGENCY FIX: Bypass DB fetch
+    setToursData(staticToursData);
   }, [language]);
 
   const MaskedText = ({ text, delayBase = 0 }: { text: string, delayBase?: number }) => {
