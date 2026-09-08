@@ -12,23 +12,17 @@ export async function POST(request: Request) {
     }
 
     // Save to Database
-    let dbError = false;
-    try {
-      if (process.env.DATABASE_URL) {
-        // Updated schema to match exact Supabase columns: name, hotel, etc.
-        await query(
-          "INSERT INTO bookings (name, phone, destination, hotel, price, flight_class, flight_type, status, commentary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
-          [fullName, phone, destination || "Unknown Destination", hotelName || "Unknown", String(price || 0), flightClass, flightType, "Pending", commentary || ""]
-        );
-      } else {
-        console.warn("No DATABASE_URL provided. Skipping DB insert.");
-      }
-    } catch (e) {
-      console.error("Database Save Error:", e);
-      dbError = true;
+    if (process.env.DATABASE_URL) {
+      // Updated schema to match exact Supabase columns: name, hotel, etc.
+      await query(
+        "INSERT INTO bookings (name, phone, destination, hotel, price, flight_class, flight_type, status, commentary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+        [fullName, phone, destination || "Unknown Destination", hotelName || "Unknown", String(price || 0), flightClass, flightType, "Pending", commentary || ""]
+      );
+    } else {
+      console.warn("No DATABASE_URL provided. Skipping DB insert.");
     }
 
-    // Send Telegram Alert (Non-blocking so it doesn't hang the response loop)
+    // Send Telegram Alert
     if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
       const message = `
 🌟 *New Premium Booking Request!* 🌟
@@ -43,32 +37,27 @@ export async function POST(request: Request) {
 📝 *Commentary:* ${commentary || "No comments"}
       `;
 
-      // Await the fetch request so Vercel serverless functions don't terminate execution early
-      try {
-        const response = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: process.env.TELEGRAM_CHAT_ID,
-            text: message,
-            parse_mode: 'Markdown'
-          })
-        });
+      const response = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: process.env.TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: 'Markdown'
+        })
+      });
 
-        if (response.status === 400 || response.status === 403 || !response.ok) {
-          const errorText = await response.text();
-          console.error(`Telegram API Error ${response.status}:`, errorText);
-        }
-      } catch (tgError) {
-        console.error("Telegram fetch operation failed:", tgError);
+      if (response.status === 400 || response.status === 403 || !response.ok) {
+        const errorText = await response.text();
+        console.error(`Telegram API Error ${response.status}:`, errorText);
       }
     } else {
       console.warn("Missing Telegram credentials. Skipping alert.");
     }
 
-    return NextResponse.json({ success: true, dbError });
-  } catch (error) {
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
     console.error("Booking API Error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ error: error?.message || "Internal Server Error" }, { status: 500 });
   }
 }
